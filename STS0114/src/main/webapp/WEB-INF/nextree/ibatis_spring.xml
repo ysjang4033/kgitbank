@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+  <!-- Database, transaction 설정 파일 -->
+  <!-- datasource.xml문서 복붙 -->
+  <!-- p속성 2번째탭에서 체크 -->
+  
+	<!-- datasource.xml의 bean id값 -->
+    <bean id="sqlMapClient" 
+    	  class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+    	  p:dataSource-ref="dataSource"										
+    	  p:configLocation="/WEB-INF/nextree/ibatis_config.xml"/>
+    
+    <!-- ibatis_config.xml이 net/hb/sqlmap/guest.xml문서 참조 -->
+    
+    <bean id="SqlMapClientTemplate" 
+    	  class="org.springframework.orm.ibatis.SqlMapClientTemplate" 
+    	  p:sqlMapClient-ref="sqlMapClient"/>	
+
+
+</beans>

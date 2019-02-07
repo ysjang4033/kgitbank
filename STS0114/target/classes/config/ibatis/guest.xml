@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+ <sqlMap namespace="guest">
+ 	<typeAlias alias="dt" type="net.hb.order.GuestDTO"/>
+ 	
+	<insert id="add"> <!-- parameterClass="net.hb.order.GuestDTO"는 굳이 쓸 필요 없음 --> <!-- SqlMapConfig.xml문서 <sqlMap resurce=config/ibatis/guest.xml>에서 땡겨오고 -->
+		insert into guest values(#sabun#, #name#, #title#, sysdate, #pay#)
+	</insert>
+	
+	<select id="selectAll2" parameterClass="dt"  resultClass="dt">
+ 	   select * from (
+ 	   select rownum rn,sabun,name,title,nalja,pay from  
+ 	   (select * from guest where $skey$ like '%' || #sval# || '%' order by sabun)    
+ 	   ) where rn between #start# and #end#
+ 	</select>
+ 	
+ 	<select id="selectAll"  resultClass="dt" parameterClass="dt">
+      select * from (
+ 	    select rownum rn,sabun,name,title,nalja,pay from guest
+ 	    <dynamic prepend="where">
+ 	    	<isEqual property="skey" compareValue="name">
+ 	    	  name like '%' ||  #sval# || '%'
+ 	    	</isEqual>
+ 	    	<isEqual property="skey" compareValue="title">
+ 	    	  title like '%' ||  #sval# || '%'
+ 	    	</isEqual>
+ 	    	<isEqual property="skey" compareValue="all" open="(" close=")">
+ 	    	  title like '%' ||  #sval# || '%' or name like '%' ||  #sval# || '%'
+ 	    	</isEqual>
+ 	    </dynamic>        
+ 	   ) where rn between #start# and #end#  
+    </select>
+	
+	<select id="selectAll777" resultClass="net.hb.order.GuestDTO"> <!-- resultClass="dt"도 가능 -->
+		select * from (
+		select rownum rn, g.* from guest g
+		) where rn between #start# and #end#
+	</select>
+
+ 	<select id="countAll" parameterClass="dt" resultClass="int">
+ 		select  count(*)  from guest
+ 	</select>
+ 	
+ 	<select id="countSearch" parameterClass="dt" resultClass="int">
+ 		select count(*) from guest where $skey$ like '%' || #sval# || '%'
+ 	</select>
+ 	
+ 
+ 	
+ 	<select id="detail" resultClass="net.hb.order.GuestDTO">
+ 		select * from guest where sabun=#sabun# <!-- data로 써도됨 -->
+ 	</select>
+ 	
+ 	<update id="edit">
+ 		update guest set pay=#pay#, name=#name#, title=#title#, nalja=sysdate  where sabun=#sabun#
+ 	</update>
+ 	
+ 	<delete id="del">
+ 		delete  from  guest where sabun=#sabun#
+ 	</delete>
+
+ </sqlMap>
