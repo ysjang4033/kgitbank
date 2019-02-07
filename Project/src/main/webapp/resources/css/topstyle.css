@@ -1,0 +1,47 @@
+  
+*{ 
+    font-family: ���� ���; 
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 2px;  
+  }
+
+  /* �޴� ���� ���� 1*/
+  nav{ margin-bottom: 25px; 
+  		text-decoration:none;
+  }
+  
+  
+  /* �޴� ���� ���� 2, �±��� id �� topMenu�� ��Ÿ��*/  
+  #topMenu{
+    height: 40px;
+    width: 850px;
+  }
+  
+  #topMenu ul li{
+    list-style: none;     /* �� ��ȣ ����  list-style: none;   */
+    color: white;         /* ���� #555555 ����*/
+    background-color:  #c0c0c0;
+    float: left;      /* float: left;  li �±��� ��� ������ �������� ���� */
+    line-height: 30px; /* �ϳ��� �� ���� */
+    vertical-align: middle; /* ���� ���� �߰� ���� */
+    text-align: center;      /* ���� ���� ���� */
+    text-decoration:none;
+  }
+   
+  #topMenu .menuLink{   /* A �±� �Ӽ� ���� */
+    text-decoration: none;  /* ���� ���� */
+    color: white;   
+    display: block;   /* A ���� ���� ���� ��ũ ���� */
+    width: 150px;
+    font-weight: bold;
+    font-family:  "Trebuchet MS", Dotum, Arial; 
+    font-size: 12px;
+  }
+  
+  #topMenu .menuLink:hover {  /* A �±׿� ���콺 over �Ӽ� ���� */
+    color: #000040;
+    background-color: #4d4d4d;
+    text-decoration:none;
+  }

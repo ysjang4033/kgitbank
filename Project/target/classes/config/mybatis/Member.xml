@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">	
+	
+	<insert id="insert">
+	
+		insert into member values(member_seq.nextval, #{m_id}, #{m_pwd}, #{m_year}, #{m_phone} ,#{m_gender}, #{m_hobby}, sysdate, #{m_juso1}, #{m_juso2}, #{m_email})
+	
+	</insert>
+	
+	<select id="idcheck" resultType="int">
+		select count(*) from member where m_id=#{m_id}
+	</select>
+	
+	<select id="logincheck" resultType="int">
+		select count(*) from member where m_id=#{m_id} and m_pwd=#{m_pwd}
+	</select>
+</mapper>

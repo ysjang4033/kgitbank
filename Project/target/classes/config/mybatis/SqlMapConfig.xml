@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+		
+	<typeAliases>
+	    <typeAlias alias="mto" type="net.hb.project.Member.MemberDTO"/>
+	    <typeAlias alias="bto" type="net.hb.project.Board.BoardDTO"/>
+	    <typeAlias alias="rto" type="net.hb.project.Reply.ReplyDTO"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="config/mybatis/Member.xml"/>
+		<mapper resource="config/mybatis/Board.xml"/>
+		<mapper resource="config/mybatis/Reply.xml"/>
+	</mappers>
+	
+</configuration>

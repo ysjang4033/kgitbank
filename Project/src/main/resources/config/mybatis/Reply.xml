@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">	
+	
+	<insert id="insert">
+		insert into board_reply values(board_reply_seq.nextval, #{r_id}, #{r_content}, #{b_idx}, sysdate)
+	</insert>
+	
+	<select id="select" resultType="net.hb.project.Reply.ReplyDTO">
+		select * from board_reply where b_idx=#{b_idx}
+	</select>
+	
+	<delete id="delete">
+		delete from board_reply where r_idx=#{r_idx}
+	</delete>
+	
+	<select id="detail" resultType="net.hb.project.Reply.ReplyDTO">
+		select * from board_reply where r_idx=#{r_idx}
+	</select>
+	
+	<update id="update">
+		update board_reply set r_content=#{r_content} where r_idx=#{r_idx} 
+	</update>
+
+</mapper>

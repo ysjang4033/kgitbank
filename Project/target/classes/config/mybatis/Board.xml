@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">	
+	
+	<insert id="insert">
+		insert into board values(board_seq.nextval, #{b_id}, #{b_title}, sysdate, #{b_content}, #{b_img_file_name})
+	</insert>
+	
+	<update id="edit">
+		update board set b_title=#{b_title}, b_content=#{b_content} where b_idx=#{b_idx}
+	</update>
+	
+	<select id="select" resultType="net.hb.project.Board.BoardDTO">
+		select * from (select rownum as rn, b.* from board b
+		<if test="keyfield != null">
+			<if test="keyfield=='id'"> where upper(b_id) like '%' || upper(#{keyword}) || '%' </if>
+			<if test="keyfield=='title'"> where upper(b_title) like '%' || upper(#{keyword}) || '%' </if>
+			<if test="keyfield=='content'"> where upper(b_content) like '%' || upper(#{keyword}) || '%' </if>
+			<if test="keyfield=='all'"> where upper(b_id) || upper(b_title) || upper(b_content) like '%' || upper(#{keyword}) || '%' </if>	
+		</if> 
+		)where rn between #{start} and #{end}
+	</select>
+	
+	<select id="detail" resultType="net.hb.project.Board.BoardDTO">
+		select * from board where b_idx=#{data}
+	</select>
+	
+	<delete id="delete">
+		delete from board where b_idx=#{data}
+	</delete>
+	
+	<select id="count" resultType="int">
+		select count(*) as cnt from board
+	</select>
+	
+	<select id="searchcount" resultType="int">
+		select count(*) from board 
+		<if test="keyfield != null">
+			<if test="keyfield=='id'"> where upper(b_id) like '%' || upper(#{keyword}) || '%' </if>
+			<if test="keyfield=='title'"> where upper(b_title) like '%' || upper(#{keyword}) || '%' </if>
+			<if test="keyfield=='content'"> where upper(b_content) like '%' || upper(#{keyword}) || '%' </if>
+			<if test="keyfield=='all'"> where upper(b_id) || upper(b_title) || upper(b_content) like '%' || upper(#{keyword}) || '%' </if>	
+		</if> 
+	</select>
+
+</mapper>
